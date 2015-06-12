@@ -1,8 +1,31 @@
 @import 'bootstrap/bootstrap';
+@import 'variables';
+@import 'mixins';
+@import 'layout/variables';
+@import 'layout/navigation';
 
-.nav {
-  width: 100%;
-  background-color: #000000;
+html {
+  height: 100%;
+}
 
-  height: 50px;
+body {
+  height: 100%;
+}
+
+.main-page {
+  position: relative;
+  height: 100%;
+  padding-top: 150px;
+  background: url(../images/layout/main-bg.png) repeat;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+a {
+  color: @main-white;
+  transition: color 0.2s;
+
+  &:hover, &:focus {
+    color: @link-hover;
+    text-decoration: none;
+  }
 }

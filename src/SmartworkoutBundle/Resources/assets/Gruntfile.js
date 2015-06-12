@@ -7,7 +7,8 @@ module.exports = function (grunt) {
                     compress: true
                 },
                 files: {
-                    "../public/css/layout.css": "less/layout.less"
+                    "../public/css/layout.css": "less/layout.less",
+                    "../public/css/homepage.css": "less/homepage.less"
                 }
             }
             /*production: {

@@ -5,12 +5,18 @@
         <title>Welcome</title>
 
         {% include 'SmartworkoutBundle::layout/head/styles.html.twig' %}
+        {% block stylesheets %}{% endblock %}
     </head>
     <body>
         <div class="main-page">
             {% include 'SmartworkoutBundle::layout/navigation.html.twig' %}
-            {% block content %}{% endblock %}
+            <section class="main-content">
+                {% block content %}{% endblock %}
+            </section>
             {% include 'SmartworkoutBundle::layout/footer.html.twig' %}
         </div>
     </body>
+    {% block javascripts %}
+        <script src="bundles/smartworkout/js/jquery-1.11.3.min.js"></script>
+    {% endblock %}
 </html>

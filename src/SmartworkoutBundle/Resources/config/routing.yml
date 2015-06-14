@@ -1,3 +1,11 @@
 homepage:
-    path:     /
+    path:   /
     defaults: { _controller: SmartworkoutBundle:Homepage:index }
+
+registration:
+    path:   /register
+    defaults: { _controller: SmartworkoutBundle:Registration:index }
+
+registration_new:
+    path:   /register/new
+    defaults: { _controller: SmartworkoutBundle:Registration:new }

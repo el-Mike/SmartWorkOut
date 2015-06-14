@@ -18,7 +18,7 @@ class RegistrationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builderInterface, array $options)
     {
         $builderInterface->add('username', 'text');
-        $builderInterface->add('pass', 'password');
+        $builderInterface->add('password', 'password');
         $builderInterface->add('email', 'email');
         $builderInterface->add('name', 'text');
         $builderInterface->add('surname', 'text');

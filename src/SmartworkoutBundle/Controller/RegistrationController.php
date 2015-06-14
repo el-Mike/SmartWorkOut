@@ -30,7 +30,23 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $encoder = $this->container->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($user, $form->get("password")->getData());
 
+            $user->setUsername($form->get("username")->getData());
+            $user->setPassword($encoded);
+            $user->setEmail($form->get("email")->getData());
+            $user->setName($form->get("name")->getData());
+            $user->setSurname($form->get("surname")->getData());
+            $user->setAge($form->get("age")->getData());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('homepage'));
         }
+
+        return $this->redirect($this->generateUrl('homepage'));
     }
 }

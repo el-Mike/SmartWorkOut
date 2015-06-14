@@ -7,12 +7,13 @@
 namespace SmartworkoutBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface as UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var
@@ -26,23 +27,30 @@ class User
     /**
      * @var
      *
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     protected $username;
 
     /**
      * @var
      *
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=64)
      */
-    protected $pass;
+    protected $password;
 
     /**
      * @var
      *
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, unique=true)
      */
     protected $email;
+
+    /**
+     * @var
+     *
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    protected $isActive;
 
     /**
      * @var
@@ -61,6 +69,35 @@ class User
      * @ORM\Column(type="integer")
      */
     protected $age;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * @return null
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+
+    }
 
     /**
      * @return mixed
@@ -97,17 +134,17 @@ class User
     /**
      * @return mixed
      */
-    public function getPass()
+    public function getPassword()
     {
-        return $this->pass;
+        return $this->password;
     }
 
     /**
      * @param $value
      */
-    public function setPass($value)
+    public function setPassword($value)
     {
-        $this->pass = $value;
+        $this->password = $value;
     }
 
     /**
@@ -172,5 +209,26 @@ class User
     public function setAge($value)
     {
         $this->age = $value;
+    }
+
+    /**
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password
+        ));
+    }
+
+    public function unserialize($value)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password
+        ) = serialize($value);
     }
 }
